@@ -82,18 +82,32 @@ export default function App() {
             formData.append("token", token);
 
             if (Platform.OS === "web") {
-                const response = await fetch(file.uri);
-                const blob = await response.blob();
-                formData.append("file", blob, file.name);
+                if (!file.file) {
+                    throw new Error("No file object found in document picker result on web.");
+                }
+
+                formData.append("file", file.file);
             } else {
-                formData.append("file", {
+                const fileData = {
                     uri: file.uri,
                     name: file.name,
                     type: file.mimeType || "application/octet-stream"
-                } as any);
+                };
+
+                formData.append("file", fileData as any);
             }
 
-            await axios.post("https://api.taskmaster.michelbijnen.nl/submission", formData);
+            const response = await fetch("https://api.taskmaster.michelbijnen.nl/submission", {
+                method: "POST",
+                body: formData,
+                headers: Platform.OS === "web" ? {} : {
+                    "Content-Type": "multipart/form-data"
+                }
+            });
+
+            if (!response.ok) {
+                throw new Error(`Upload failed with status ${response.status}`);
+            }
 
             Toast.show({
                 type: "success",

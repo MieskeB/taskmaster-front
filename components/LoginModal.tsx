@@ -64,8 +64,10 @@ const LoginModal: React.FC<LoginModalProps> = ({visible, onClose}) => {
                             placeholder={"code"}
                             value={code}
                             onChangeText={setCode}
-                            secureTextEntry
-                            onKeyPress={handleKeyPress}
+                            secureTextEntry={true}
+                            textContentType="password"
+                            autoCapitalize="none"
+                            keyboardType="default"
                             editable={!loading}
                         />
                     </>
