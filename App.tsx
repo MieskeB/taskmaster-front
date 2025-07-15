@@ -40,7 +40,7 @@ export default function App() {
 
     const fetchChallenge = async (teamName: string) => {
         try {
-            const response = await axios.get("http://localhost:8080/challenge/current");
+            const response = await axios.get("https://api.taskmaster.michelbijnen.nl/challenge/current");
             const challengeData: Challenge = response.data;
             setChallenge(challengeData);
 
@@ -93,7 +93,7 @@ export default function App() {
                 } as any);
             }
 
-            await axios.post("http://localhost:8080/submission", formData);
+            await axios.post("https://api.taskmaster.michelbijnen.nl/submission", formData);
 
             Toast.show({
                 type: "success",

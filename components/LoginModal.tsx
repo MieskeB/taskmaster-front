@@ -16,7 +16,7 @@ const LoginModal: React.FC<LoginModalProps> = ({visible, onClose}) => {
     const login = async () => {
         try {
             setLoading(true);
-            const res = await axios.post('http://localhost:8080/authenticate', {
+            const res = await axios.post('https://api.taskmaster.michelbijnen.nl/authenticate', {
                 teamName,
                 code,
             });
