@@ -106,7 +106,7 @@ export default function App() {
             Toast.show({
                 type: "error",
                 text1: "Upload mislukt",
-                text2: "Probeer het opnieuw 🙁"
+                text2: "Probeer het opnieuw"
             });
         }
     };
