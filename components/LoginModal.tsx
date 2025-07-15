@@ -2,6 +2,7 @@ import {Alert, Button, Modal, StyleSheet, Text, TextInput, View} from "react-nat
 import axios from "axios";
 import {storage} from "../services/storage";
 import React, {useState} from "react";
+import Toast from "react-native-toast-message";
 
 interface LoginModalProps {
     visible: boolean;
@@ -25,7 +26,11 @@ const LoginModal: React.FC<LoginModalProps> = ({visible, onClose}) => {
             onClose();
             setLoading(false);
         } catch (e) {
-            Alert.alert("Login failed", "Please check your credentials.");
+            Toast.show({
+                type: "error",
+                text1: "Inloggen mislukt",
+                text2: "Controleer uw gegevens"
+            });
             setLoading(false);
         }
     };
