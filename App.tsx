@@ -111,9 +111,26 @@ export default function App() {
         }
     };
 
+    const logout = async () => {
+        await storage.removeItem("token");
+        setToken(null);
+        setTeamName(null);
+        setChallenge(null);
+        setHasSubmitted(false);
+        setLoginVisible(true);
+    };
+
 
     return (
         <View style={styles.container}>
+            <View style={styles.header}>
+                {teamName && (
+                    <>
+                        <Text style={styles.loggedInText}>Ingelogd als: <Text style={styles.teamName}>{teamName}</Text></Text>
+                        <Button title="Log uit" onPress={logout} />
+                    </>
+                )}
+            </View>
             {challenge ? (
                 <View style={styles.card}>
                     <Text style={styles.title}>{challenge.title}</Text>
@@ -198,5 +215,28 @@ const styles = StyleSheet.create({
     },
     buttonContainer: {
         marginTop: 10
-    }
+    },
+    header: {
+        width: '100%',
+        padding: 16,
+        backgroundColor: '#ffffff',
+        marginBottom: 20,
+        borderRadius: 8,
+        alignItems: 'center',
+        shadowColor: "#000",
+        shadowOffset: {width: 0, height: 2},
+        shadowOpacity: 0.1,
+        shadowRadius: 6,
+        elevation: 2,
+        maxWidth: 400
+    },
+    loggedInText: {
+        fontSize: 16,
+        marginBottom: 8,
+        color: '#333',
+    },
+    teamName: {
+        fontWeight: 'bold',
+        color: '#007AFF',
+    },
 });
